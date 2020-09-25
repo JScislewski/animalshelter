@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,10 @@ public class User {
 
   @Column(length = 32, nullable = false)
   private String name;
+
+  @Column(nullable = false)
+  @Email
+  private String email;
 
   @Column(length = 64, nullable = false)
   private String password;
