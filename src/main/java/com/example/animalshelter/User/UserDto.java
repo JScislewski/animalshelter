@@ -3,8 +3,10 @@ package com.example.animalshelter.User;
 import com.sun.istack.NotNull;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import lombok.Data;
 
-public class UserDto {
+@Data
+class UserDto {
   @NotNull
   @NotEmpty
   private String username;
