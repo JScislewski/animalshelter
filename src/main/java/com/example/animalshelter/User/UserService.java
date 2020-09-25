@@ -2,6 +2,7 @@ package com.example.animalshelter.User;
 
 import com.example.animalshelter.exception.PasswordsDoesNotMatchException;
 import com.example.animalshelter.exception.UserAlreadyExistException;
+import java.util.Arrays;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
