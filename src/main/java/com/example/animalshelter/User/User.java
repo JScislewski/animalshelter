@@ -1,4 +1,4 @@
-package com.example.animalshelter.model;
+package com.example.animalshelter.User;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,6 +1,6 @@
-package com.example.animalshelter.controller;
+package com.example.animalshelter.User;
 
-import com.example.animalshelter.model.User;
+import com.example.animalshelter.User.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;

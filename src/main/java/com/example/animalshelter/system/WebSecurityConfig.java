@@ -1,4 +1,4 @@
-package com.example.animalshelter;
+package com.example.animalshelter.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
