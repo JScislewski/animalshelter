@@ -1,6 +1,8 @@
 package com.example.animalshelter.User;
 
+import com.example.animalshelter.exception.PasswordsDoesNotMatchException;
 import com.example.animalshelter.exception.UserAlreadyExistException;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +16,22 @@ public class UserService implements IUserService {
     return userRepository.findByEmail(email) != null;
   }
 
+  @Transactional
   @Override
   public void registerNewUserAccount(UserDto userDto)
-    throws UserAlreadyExistException {
+    throws UserAlreadyExistException, PasswordsDoesNotMatchException {
     if (emailExist(userDto.getEmail())) {
       throw new UserAlreadyExistException(
         "There is already an account with that email"
       );
     }
+    if (userDto.getPassword() != userDto.getConfirmPassword()) {
+      throw new PasswordsDoesNotMatchException("Passwords does not match");
+    }
+    User user = new User();
+    user.setUsername(userDto.getUsername());
+    user.setEmail(userDto.getEmail());
+    user.setPassword(userDto.getPassword());
+    userRepository.save(user);
   }
 }

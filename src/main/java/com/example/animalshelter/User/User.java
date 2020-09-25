@@ -20,7 +20,7 @@ public class User {
   private long id;
 
   @Column(length = 32, nullable = false)
-  private String name;
+  private String username;
 
   @Column(nullable = false)
   @Email
@@ -29,8 +29,8 @@ public class User {
   @Column(length = 64, nullable = false)
   private String password;
 
-  public User(String name, String password) {
-    this.name = name;
+  public User(String username, String password) {
+    this.username = username;
     this.password = password;
   }
 }

@@ -1,6 +1,7 @@
 package com.example.animalshelter.User;
 
 import com.example.animalshelter.User.User;
+import com.example.animalshelter.exception.PasswordsDoesNotMatchException;
 import com.example.animalshelter.exception.UserAlreadyExistException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,10 @@ public class UserController {
       userService.registerNewUserAccount(userDto);
     } catch (UserAlreadyExistException uaeEx) {
       return new ResponseEntity(uaeEx.getMessage(), HttpStatus.CONFLICT);
+    } catch (PasswordsDoesNotMatchException pdnmEx) {
+      return new ResponseEntity(pdnmEx.getMessage(), HttpStatus.BAD_REQUEST);
     }
-    return new ResponseEntity<UserDto>(userDto, HttpStatus.CREATED);
+    return new ResponseEntity<>(userDto, HttpStatus.CREATED);
   }
 
   @GetMapping("/users")
