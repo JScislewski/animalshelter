@@ -25,8 +25,8 @@ class RegistrationTests {
     throws PasswordsDoesNotMatchException, UserAlreadyExistException {
     int userCount = userRepository.findAll().size();
     UserDto userDto = new UserDto(
-      "Jan",
-      "jan@gmail.com",
+      "user1",
+      "user1@gmail.com",
       "password",
       "password"
     );
@@ -34,5 +34,32 @@ class RegistrationTests {
     assertThat(userRepository.findAll().size()).isEqualTo(userCount + 1);
     assertThat(userRepository.findByUsername(userDto.getUsername()))
       .isNotNull();
+  }
+
+  @Test
+  void registerNewUserAccount_duplicateEmail_exception()
+    throws PasswordsDoesNotMatchException, UserAlreadyExistException {
+    int userCount = userRepository.findAll().size();
+    UserDto firstUser = new UserDto(
+      "user2",
+      "user2@gmail.com",
+      "password",
+      "password"
+    );
+    UserDto secondUser = new UserDto(
+      "user3",
+      "user2@gmail.com",
+      "password",
+      "password"
+    );
+    userService.registerNewUserAccount(firstUser);
+    Exception exception = assertThrows(
+      UserAlreadyExistException.class,
+      () -> {
+        userService.registerNewUserAccount(secondUser);
+      }
+    );
+    assertThat(exception.getMessage())
+      .isEqualTo("There is already an account with that email");
   }
 }
