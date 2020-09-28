@@ -10,6 +10,8 @@ import com.example.animalshelter.exception.PasswordsDoesNotMatchException;
 import com.example.animalshelter.exception.UserAlreadyExistException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -39,7 +41,6 @@ class RegistrationTests {
   @Test
   void registerNewUserAccount_duplicateEmail_exception()
     throws PasswordsDoesNotMatchException, UserAlreadyExistException {
-    int userCount = userRepository.findAll().size();
     UserDto firstUser = new UserDto(
       "user2",
       "user2@gmail.com",
@@ -61,5 +62,23 @@ class RegistrationTests {
     );
     assertThat(exception.getMessage())
       .isEqualTo("There is already an account with that email");
+  }
+
+  @Test
+  void registerNewUserAccount_differentPasswords_exception()
+    throws PasswordsDoesNotMatchException, UserAlreadyExistException {
+    UserDto user = new UserDto(
+      "user4",
+      "user4@gmail.com",
+      "password",
+      "differentPassword"
+    );
+    Exception exception = assertThrows(
+      PasswordsDoesNotMatchException.class,
+      () -> {
+        userService.registerNewUserAccount(user);
+      }
+    );
+    assertThat(exception.getMessage()).isEqualTo("Passwords does not match");
   }
 }
