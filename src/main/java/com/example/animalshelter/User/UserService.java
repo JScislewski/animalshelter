@@ -26,7 +26,7 @@ public class UserService implements IUserService {
         "There is already an account with that email"
       );
     }
-    if (userDto.getPassword() != userDto.getConfirmPassword()) {
+    if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
       throw new PasswordsDoesNotMatchException("Passwords does not match");
     }
     User user = new User();
