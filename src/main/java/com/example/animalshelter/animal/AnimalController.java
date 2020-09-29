@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,5 +46,16 @@ public class AnimalController {
   ) {
     Animal animal = animalService.addNewAnimal(animalDto);
     return new ResponseEntity<>(animal, HttpStatus.OK);
+  }
+
+  @DeleteMapping("/animal")
+  public ResponseEntity<Void> deleteAnimal(@RequestParam(name = "id") long id) {
+    Optional<Animal> animal = animalRepository.findById(id);
+    if (animal.isPresent()) {
+      animalRepository.delete(animal.get());
+      return new ResponseEntity<>(HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 }
