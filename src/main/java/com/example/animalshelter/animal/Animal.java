@@ -38,4 +38,20 @@ public class Animal {
   @Column(length = 32, nullable = false)
   @Enumerated
   private Status status;
+
+  public Animal(
+    String name,
+    int age,
+    Gender gender,
+    Species species,
+    String breed,
+    Status status
+  ) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    this.species = species;
+    this.breed = breed;
+    this.status = status;
+  }
 }
